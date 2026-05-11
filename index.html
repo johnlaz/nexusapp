@@ -859,23 +859,27 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
 </footer>
 
 
-// Icon loader — tries .jpg first, then .png, then shows emoji fallback
+<script>
+// ── Icon loader: tries .jpg then .png, shows emoji if both fail ──
 function iconLoaded(img) {
   img.style.opacity = '1';
-  // hide the sibling emoji (previousElementSibling)
   const sib = img.previousElementSibling;
   if (sib) sib.style.display = 'none';
 }
 function iconErr(img) {
-  const src = img.src;
-  if (src.endsWith('.jpg')) {
-    // retry as .png
-    img.src = src.replace(/\.jpg$/, '.png');
+  // Only retry once — if src already ends in .png, give up and leave emoji showing
+  if (img.src.endsWith('.png')) {
+    img.onerror = null; // stop any further error handling
+    return;
   }
-  // if .png also fails, onerror fires again but src won't end in .jpg
-  // so we do nothing — emoji stays visible
+  // First failure was .jpg — swap to .png and try again
+  img.onerror = function() {
+    this.onerror = null; // prevent any loop
+  };
+  img.src = img.src.replace(/\.jpg(\?.*)?$/, '.png');
 }
-<script>
+
+// ── Scroll reveal ──
 const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
 }, {threshold:0.1,rootMargin:'0px 0px -40px 0px'});
