@@ -4,612 +4,146 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nexus Suite — Every App You Need</title>
-<meta name="description" content="Nexus Suite by LAZLAB — A growing portfolio of apps spanning finance, health, business, creativity, and beyond.">
+<meta name="description" content="Nexus Suite by LAZLAB — 32 purpose-built apps spanning AI, finance, health, automotive, kids, creative, business, and beyond.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,900&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black:    #070b10;
-  --surface:  #0d1117;
-  --surface2: #111820;
-  --surface3: #192030;
-  --border:   rgba(0,212,255,0.10);
+  --black:         #070b10;
+  --surface:       #0d1117;
+  --surface2:      #111820;
+  --surface3:      #192030;
+  --border:        rgba(0,212,255,0.10);
   --border-bright: rgba(0,212,255,0.28);
-  --cyan:     #00d4ff;
-  --cyan-dim: #0090b8;
-  --cyan-glow: rgba(0,212,255,0.14);
-  --violet:   #8b5cf6;
-  --violet-glow: rgba(139,92,246,0.18);
-  --white:    #e8f4f8;
-  --dim:      #4a6070;
-  --dim2:     #253040;
-  --green:    #3dba7a;
+  --cyan:          #00d4ff;
+  --cyan-glow:     rgba(0,212,255,0.14);
+  --violet:        #8b5cf6;
+  --white:         #e8f4f8;
+  --dim:           #4a6070;
+  --green:         #3dba7a;
 }
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: 'Instrument Sans', sans-serif;
-  overflow-x: hidden;
-}
-
-/* ── GRAIN ── */
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 9999;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity: 0.35;
-}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'Instrument Sans',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.35;}
 
 /* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 48px;
-  height: 68px;
-  background: rgba(7,11,16,0.85);
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--border);
-}
-.nav-logo {
-  display: flex; align-items: center; gap: 12px;
-  text-decoration: none;
-}
-.nav-mark {
-  font-family: 'DM Mono', monospace;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: 6px;
-  color: var(--white);
-  text-transform: uppercase;
-  text-shadow: 0 0 18px rgba(0,212,255,0.45);
-}
-.nav-mark em { font-style: normal; color: var(--cyan); }
-.nav-eyebrow {
-  font-family: 'DM Mono', monospace;
-  font-size: 8px;
-  letter-spacing: 3px;
-  color: var(--cyan);
-  text-transform: uppercase;
-  opacity: 0.65;
-}
-.nav-links {
-  display: flex; align-items: center; gap: 32px;
-  list-style: none;
-}
-.nav-links a {
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--dim);
-  text-decoration: none;
-  font-family: 'DM Mono', monospace;
-  transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--cyan); }
-.nav-cta {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 9px 24px;
-  border: 1px solid var(--border-bright);
-  color: var(--cyan);
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  background: var(--cyan-glow);
-  transition: all 0.22s;
-}
-.nav-cta:hover {
-  background: rgba(0,212,255,0.22);
-  box-shadow: 0 0 24px rgba(0,212,255,0.18);
-}
-@media (max-width: 768px) {
-  nav { padding: 0 20px; }
-  .nav-links { display: none; }
-}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:68px;background:rgba(7,11,16,0.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;}
+.nav-logo-img{width:42px;height:42px;border-radius:10px;object-fit:cover;box-shadow:0 0 16px rgba(0,212,255,0.25);flex-shrink:0;background:var(--surface2);border:1px solid var(--border);}
+.nav-eyebrow{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;opacity:.65;}
+.nav-mark{font-family:'DM Mono',monospace;font-size:1.1rem;font-weight:500;letter-spacing:5px;color:var(--white);text-transform:uppercase;text-shadow:0 0 18px rgba(0,212,255,0.4);}
+.nav-mark em{font-style:normal;color:var(--cyan);}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
+.nav-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);text-decoration:none;font-family:'DM Mono',monospace;transition:color .2s;}
+.nav-links a:hover{color:var(--cyan);}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:9px 22px;border:1px solid var(--border-bright);color:var(--cyan);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:4px;background:var(--cyan-glow);transition:all .22s;}
+.nav-cta:hover{background:rgba(0,212,255,0.22);box-shadow:0 0 24px rgba(0,212,255,0.18);}
+@media(max-width:768px){nav{padding:0 20px;}.nav-links{display:none;}}
 
 /* ── HERO ── */
-.hero {
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center;
-  padding: 120px 24px 80px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Radial aurora */
-.hero::after {
-  content: '';
-  position: absolute;
-  width: 900px; height: 900px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,212,255,0.065) 0%, rgba(139,92,246,0.04) 45%, transparent 70%);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -52%);
-  pointer-events: none;
-  animation: pulse-aurora 8s ease-in-out infinite alternate;
-}
-@keyframes pulse-aurora {
-  0%   { transform: translate(-50%, -52%) scale(1);    opacity: 0.7; }
-  100% { transform: translate(-50%, -52%) scale(1.12); opacity: 1;   }
-}
-
-/* Grid lines */
-.hero-grid {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
-}
-
-.hero-inner { position: relative; z-index: 2; max-width: 860px; }
-
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--cyan);
-  border: 1px solid var(--border-bright);
-  padding: 7px 18px;
-  border-radius: 100px;
-  background: var(--cyan-glow);
-  margin-bottom: 36px;
-  animation: fade-up 0.8s ease both;
-}
-.hero-tag-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--cyan);
-  box-shadow: 0 0 8px var(--cyan);
-  animation: blink 2s ease-in-out infinite;
-}
-@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-.hero-headline {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3rem, 8vw, 6.5rem);
-  font-weight: 900;
-  line-height: 1.0;
-  margin-bottom: 28px;
-  animation: fade-up 0.8s 0.1s ease both;
-}
-.hero-headline em {
-  font-style: italic;
-  color: var(--cyan);
-  text-shadow: 0 0 40px rgba(0,212,255,0.45), 0 0 80px rgba(0,212,255,0.2);
-  display: block;
-}
-
-.hero-sub {
-  font-size: 17px;
-  font-weight: 300;
-  color: #7a9ab0;
-  max-width: 540px;
-  margin: 0 auto 48px;
-  line-height: 1.75;
-  animation: fade-up 0.8s 0.2s ease both;
-}
-
-.hero-actions {
-  display: flex; align-items: center; justify-content: center; gap: 16px;
-  flex-wrap: wrap;
-  animation: fade-up 0.8s 0.3s ease both;
-}
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 36px;
-  background: var(--cyan);
-  color: var(--black);
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  border: none; cursor: pointer;
-  transition: all 0.22s;
-  box-shadow: 0 0 30px rgba(0,212,255,0.3);
-}
-.btn-primary:hover {
-  background: #33deff;
-  box-shadow: 0 0 50px rgba(0,212,255,0.5);
-  transform: translateY(-1px);
-}
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 32px;
-  background: transparent;
-  color: var(--white);
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  border: 1px solid var(--border-bright);
-  transition: all 0.22s;
-}
-.btn-ghost:hover {
-  border-color: rgba(0,212,255,0.4);
-  color: var(--cyan);
-  background: var(--cyan-glow);
-}
-
-/* Stats row */
-.hero-stats {
-  display: flex; align-items: center; justify-content: center; gap: 48px;
-  margin-top: 72px;
-  padding-top: 40px;
-  border-top: 1px solid var(--border);
-  animation: fade-up 0.8s 0.45s ease both;
-}
-.stat { text-align: center; }
-.stat-num {
-  font-family: 'DM Mono', monospace;
-  font-size: 1.9rem;
-  font-weight: 500;
-  color: var(--white);
-  text-shadow: 0 0 20px rgba(0,212,255,0.3);
-}
-.stat-num em { font-style: normal; color: var(--cyan); }
-.stat-label {
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--dim);
-  margin-top: 6px;
-  font-family: 'DM Mono', monospace;
-}
-.stat-div {
-  width: 1px; height: 40px;
-  background: var(--border-bright);
-}
-@media (max-width: 600px) {
-  .hero-stats { gap: 24px; }
-  .stat-div { height: 28px; }
-}
-
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0);    }
-}
-
-/* ── CATEGORIES ── */
-.categories {
-  padding: 100px 48px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--cyan);
-  margin-bottom: 16px;
-  opacity: 0.7;
-}
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 900;
-  line-height: 1.15;
-  margin-bottom: 56px;
-}
-.section-title em { font-style: italic; color: var(--cyan); }
-
-.cat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-}
-.cat-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 28px 22px;
-  cursor: default;
-  transition: all 0.25s;
-  position: relative;
-  overflow: hidden;
-}
-.cat-card::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, var(--cyan-glow) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.cat-card:hover {
-  border-color: var(--border-bright);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 1px rgba(0,212,255,0.2);
-}
-.cat-card:hover::before { opacity: 1; }
-.cat-icon {
-  font-size: 26px;
-  margin-bottom: 14px;
-  display: block;
-}
-.cat-name {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 6px;
-}
-.cat-desc {
-  font-size: 12px;
-  color: var(--dim);
-  line-height: 1.6;
-}
-
-/* ── FEATURE STRIP ── */
-.features {
-  padding: 80px 48px;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.features-inner {
-  max-width: 1200px; margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-.feature-visual {
-  position: relative;
-}
-.mockup-shell {
-  background: var(--surface2);
-  border: 1px solid var(--border-bright);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,212,255,0.06);
-}
-.mockup-bar {
-  display: flex; align-items: center; gap: 8px;
-  padding: 12px 16px;
-  background: var(--surface3);
-  border-bottom: 1px solid var(--border);
-}
-.mockup-dot { width: 9px; height: 9px; border-radius: 50%; }
-.mockup-dot:nth-child(1) { background: #ff5f57; }
-.mockup-dot:nth-child(2) { background: #ffbd2e; }
-.mockup-dot:nth-child(3) { background: #28c840; }
-.mockup-title-bar {
-  flex: 1; text-align: center;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; letter-spacing: 2px;
-  color: var(--dim); text-transform: uppercase;
-}
-.mockup-body {
-  padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-.mock-card {
-  background: var(--surface3);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 16px 12px;
-  text-align: center;
-  transition: border-color 0.3s;
-}
-.mock-card:hover { border-color: var(--border-bright); }
-.mock-emoji { font-size: 20px; margin-bottom: 8px; display: block; }
-.mock-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px; letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--dim);
-}
-.mock-pip {
-  width: 6px; height: 6px; border-radius: 50%;
-  margin: 6px auto 0;
-}
-.pip-green { background: var(--green); box-shadow: 0 0 6px var(--green); }
-.pip-cyan  { background: var(--cyan);  box-shadow: 0 0 6px var(--cyan);  }
-.pip-amber { background: #c9813a;      box-shadow: 0 0 6px #c9813a; }
-
-.features-copy {}
-.feature-list { list-style: none; margin-top: 36px; display: flex; flex-direction: column; gap: 22px; }
-.feature-item { display: flex; align-items: flex-start; gap: 16px; }
-.feature-check {
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  border: 1px solid var(--border-bright);
-  background: var(--cyan-glow);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; margin-top: 2px;
-  color: var(--cyan); font-size: 11px;
-}
-.feature-text { font-size: 14px; color: #7a9ab0; line-height: 1.65; }
-.feature-text strong { color: var(--white); font-weight: 500; }
-
-@media (max-width: 900px) {
-  .features-inner { grid-template-columns: 1fr; gap: 48px; }
-}
-@media (max-width: 600px) {
-  .features { padding: 60px 20px; }
-  .categories { padding: 60px 20px; }
-}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,0.07) 0%,rgba(139,92,246,0.04) 45%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-52%);pointer-events:none;animation:pulse-aurora 8s ease-in-out infinite alternate;}
+@keyframes pulse-aurora{0%{transform:translate(-50%,-52%) scale(1);opacity:.7;}100%{transform:translate(-50%,-52%) scale(1.12);opacity:1;}}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 80%);}
+.hero-inner{position:relative;z-index:2;max-width:920px;}
+.hero-icon-wrap{margin:0 auto 40px;width:160px;height:160px;border-radius:36px;overflow:hidden;box-shadow:0 0 60px rgba(0,212,255,0.35),0 0 120px rgba(139,92,246,0.2),0 20px 60px rgba(0,0,0,0.6);border:1px solid rgba(0,212,255,0.2);animation:fade-up .7s ease both;background:var(--surface2);}
+.hero-icon-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);border:1px solid var(--border-bright);padding:7px 18px;border-radius:100px;background:var(--cyan-glow);margin-bottom:32px;animation:fade-up .8s .05s ease both;}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero-headline{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,7.5vw,6rem);font-weight:900;line-height:1.0;margin-bottom:28px;animation:fade-up .8s .12s ease both;}
+.hero-headline em{font-style:italic;color:var(--cyan);text-shadow:0 0 40px rgba(0,212,255,0.45),0 0 80px rgba(0,212,255,0.2);display:block;}
+.hero-sub{font-size:17px;font-weight:300;color:#7a9ab0;max-width:560px;margin:0 auto 48px;line-height:1.75;animation:fade-up .8s .2s ease both;}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;animation:fade-up .8s .3s ease both;}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:var(--cyan);color:var(--black);font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:4px;border:none;cursor:pointer;transition:all .22s;box-shadow:0 0 30px rgba(0,212,255,0.3);}
+.btn-primary:hover{background:#33deff;box-shadow:0 0 50px rgba(0,212,255,0.5);transform:translateY(-1px);}
+.btn-ghost{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:transparent;color:var(--white);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:4px;border:1px solid var(--border-bright);transition:all .22s;}
+.btn-ghost:hover{border-color:rgba(0,212,255,0.4);color:var(--cyan);background:var(--cyan-glow);}
+.hero-stats{display:flex;align-items:center;justify-content:center;gap:48px;margin-top:72px;padding-top:40px;border-top:1px solid var(--border);animation:fade-up .8s .45s ease both;}
+.stat{text-align:center;}
+.stat-num{font-family:'DM Mono',monospace;font-size:1.9rem;font-weight:500;color:var(--white);text-shadow:0 0 20px rgba(0,212,255,0.3);}
+.stat-num em{font-style:normal;color:var(--cyan);}
+.stat-label{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);margin-top:6px;font-family:'DM Mono',monospace;}
+.stat-div{width:1px;height:40px;background:var(--border-bright);}
+@media(max-width:600px){.hero-stats{gap:24px;}.stat-div{height:28px;}}
+@keyframes fade-up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
 /* ── MARQUEE ── */
-.marquee-section {
-  padding: 60px 0;
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
-}
-.marquee-track {
-  display: flex; gap: 0;
-  animation: marquee 28s linear infinite;
-  width: max-content;
-}
-.marquee-track:hover { animation-play-state: paused; }
-.marquee-item {
-  display: flex; align-items: center; gap: 14px;
-  padding: 0 36px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--dim);
-  white-space: nowrap;
-}
-.marquee-item em { font-style: normal; color: var(--cyan); font-size: 14px; }
-.marquee-sep { color: var(--border-bright); font-size: 20px; opacity: 0.5; }
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
+.marquee-section{padding:60px 0;border-bottom:1px solid var(--border);overflow:hidden;}
+.marquee-track{display:flex;gap:0;animation:marquee 36s linear infinite;width:max-content;}
+.marquee-track:hover{animation-play-state:paused;}
+.marquee-item{display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap;}
+.marquee-app-icon{width:28px;height:28px;border-radius:7px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;}
+.marquee-sep{color:rgba(0,212,255,0.2);font-size:18px;padding:0 4px;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── APPS SECTION ── */
+.apps-section{padding:100px 48px 60px;max-width:1280px;margin:0 auto;}
+.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);margin-bottom:16px;opacity:.7;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;line-height:1.15;margin-bottom:16px;}
+.section-title em{font-style:italic;color:var(--cyan);}
+.section-sub{font-size:15px;color:var(--dim);max-width:500px;line-height:1.7;margin-bottom:60px;}
+
+/* ── APP GRID ── */
+.apps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+.app-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 18px;cursor:default;transition:all .25s;position:relative;overflow:hidden;display:flex;align-items:flex-start;gap:16px;}
+.app-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--cyan-glow) 0%,transparent 60%);opacity:0;transition:opacity .3s;}
+.app-card:hover{border-color:var(--border-bright);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.3);}
+.app-card:hover::before{opacity:1;}
+.app-card-icon{width:52px;height:52px;border-radius:12px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;position:relative;z-index:1;}
+.app-icon-img{width:100%;height:100%;object-fit:cover;display:block;border-radius:11px;}
+.app-icon-fallback{font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
+.app-card-body{position:relative;z-index:1;flex:1;min-width:0;}
+.app-card-tag{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);opacity:.7;margin-bottom:4px;}
+.app-card-name{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.app-card-desc{font-size:12px;color:var(--dim);line-height:1.55;}
+
+/* ── FEATURES ── */
+.features{padding:80px 48px;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.features-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.mockup-shell{background:var(--surface2);border:1px solid var(--border-bright);border-radius:12px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(0,212,255,0.06);}
+.mockup-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--surface3);border-bottom:1px solid var(--border);}
+.mockup-dot{width:9px;height:9px;border-radius:50%;}
+.mockup-dot:nth-child(1){background:#ff5f57;}.mockup-dot:nth-child(2){background:#ffbd2e;}.mockup-dot:nth-child(3){background:#28c840;}
+.mockup-title-bar{flex:1;text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--dim);text-transform:uppercase;}
+.mockup-body{padding:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.mock-card{background:var(--surface3);border:1px solid var(--border);border-radius:8px;padding:14px 10px;text-align:center;transition:border-color .3s;}
+.mock-card:hover{border-color:var(--border-bright);}
+.mock-icon-wrap{width:36px;height:36px;border-radius:9px;overflow:hidden;margin:0 auto 6px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;}
+.mock-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);}
+.feature-list{list-style:none;margin-top:36px;display:flex;flex-direction:column;gap:22px;}
+.feature-item{display:flex;align-items:flex-start;gap:16px;}
+.feature-check{width:22px;height:22px;border-radius:50%;border:1px solid var(--border-bright);background:var(--cyan-glow);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;color:var(--cyan);font-size:11px;}
+.feature-text{font-size:14px;color:#7a9ab0;line-height:1.65;}
+.feature-text strong{color:var(--white);font-weight:500;}
+@media(max-width:900px){.features-inner{grid-template-columns:1fr;gap:48px;}}
+@media(max-width:600px){.features{padding:60px 20px;}.apps-section{padding:60px 20px;}}
 
 /* ── VISION ── */
-.vision {
-  padding: 120px 48px;
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-}
-.vision-quote {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
-  font-style: italic;
-  font-weight: 700;
-  line-height: 1.4;
-  color: var(--white);
-  position: relative;
-}
-.vision-quote::before {
-  content: '"';
-  position: absolute; top: -20px; left: -16px;
-  font-size: 5rem;
-  line-height: 1;
-  color: var(--cyan);
-  opacity: 0.15;
-  font-family: 'Playfair Display', serif;
-}
-.vision-sub {
-  margin-top: 28px;
-  font-size: 13px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--dim);
-  font-family: 'DM Mono', monospace;
-}
+.vision{padding:120px 48px;text-align:center;max-width:800px;margin:0 auto;}
+.vision-quote{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.6rem);font-style:italic;font-weight:700;line-height:1.4;color:var(--white);position:relative;}
+.vision-quote::before{content:'\201C';position:absolute;top:-20px;left:-16px;font-size:5rem;line-height:1;color:var(--cyan);opacity:.15;font-family:'Playfair Display',serif;}
+.vision-sub{margin-top:28px;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--dim);font-family:'DM Mono',monospace;}
 
-/* ── CTA SECTION ── */
-.cta-section {
-  padding: 100px 48px;
-  text-align: center;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  position: relative;
-  overflow: hidden;
-}
-.cta-section::before {
-  content: '';
-  position: absolute;
-  width: 600px; height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
-  bottom: -100px; left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-.cta-inner { position: relative; z-index: 2; }
-.cta-section .section-title { margin-bottom: 16px; }
-.cta-desc {
-  font-size: 15px;
-  color: var(--dim);
-  margin-bottom: 40px;
-  line-height: 1.7;
-  max-width: 440px;
-  margin-left: auto;
-  margin-right: auto;
-}
+/* ── CTA ── */
+.cta-section{padding:100px 48px;text-align:center;background:var(--surface);border-top:1px solid var(--border);position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;width:600px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,0.08) 0%,transparent 70%);bottom:-100px;left:50%;transform:translateX(-50%);pointer-events:none;}
+.cta-inner{position:relative;z-index:2;}
+.cta-desc{font-size:15px;color:var(--dim);margin-bottom:40px;line-height:1.7;max-width:440px;margin-left:auto;margin-right:auto;}
 
 /* ── FOOTER ── */
-footer {
-  padding: 32px 48px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-.footer-left {
-  display: flex; align-items: center; gap: 12px;
-}
-/* LAZLAB logo mark */
-.lazlab-logo {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 32px; height: 32px;
-  border-radius: 6px;
-  background: var(--surface2);
-  border: 1px solid var(--border-bright);
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.lazlab-logo svg {
-  width: 20px; height: 20px;
-}
-.footer-copy {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: var(--dim);
-  text-transform: uppercase;
-}
-.footer-links {
-  display: flex; gap: 24px; list-style: none;
-}
-.footer-links a {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--dim);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-links a:hover { color: var(--cyan); }
+footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-left{display:flex;align-items:center;gap:14px;}
+.lazlab-logo{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:var(--surface2);border:1px solid var(--border-bright);flex-shrink:0;}
+.footer-copy{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--dim);text-transform:uppercase;}
+.footer-links{display:flex;gap:24px;list-style:none;}
+.footer-links a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--cyan);}
 
-@media (max-width: 600px) {
-  footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
-  .cta-section { padding: 60px 20px; }
-  .vision { padding: 80px 20px; }
-}
-
-/* ── SCROLL REVEAL ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
 </style>
 </head>
 <body>
@@ -617,206 +151,672 @@ footer {
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
+    <img class="nav-logo-img" src="icons/nexus.jpg" alt="Nexus Suite"
+         onerror="this.style.opacity='0.4';">
     <div>
       <div class="nav-eyebrow">by lazlab</div>
       <div class="nav-mark">NE<em>X</em>US Suite</div>
     </div>
   </a>
   <ul class="nav-links">
-    <li><a href="#categories">Apps</a></li>
+    <li><a href="#apps">Apps</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#vision">About</a></li>
   </ul>
-  <a href="#cta" class="nav-cta">
-    <span>Launch</span>
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-  </a>
+  <a href="#cta" class="nav-cta">Launch&nbsp;<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-grid"></div>
   <div class="hero-inner">
-    <div class="hero-tag">
-      <span class="hero-tag-dot"></span>
-      Every App You Need. One Suite.
+    <div class="hero-icon-wrap">
+      <img src="icons/nexus.jpg" alt="Nexus Suite"
+           onerror="this.style.opacity='0.2';">
     </div>
-    <h1 class="hero-headline">
-      Your Universe<br>of
-      <em>Applications</em>
-    </h1>
-    <p class="hero-sub">
-      Nexus Suite is a growing portfolio of purposeful apps spanning every dimension of your life — finance, health, creativity, business, and beyond.
-    </p>
+    <div class="hero-tag"><span class="hero-tag-dot"></span>32 Live Apps. One Suite.</div>
+    <h1 class="hero-headline">Your Universe<br>of <em>Applications</em></h1>
+    <p class="hero-sub">Nexus Suite is a growing portfolio of 28+ purpose-built apps spanning AI, finance, health, automotive, kids, creative tools, business, and beyond — all in one unified hub.</p>
     <div class="hero-actions">
-      <a href="#categories" class="btn-primary">
-        Explore Apps
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <a href="#apps" class="btn-primary">Explore Apps&nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       <a href="#features" class="btn-ghost">Learn More</a>
     </div>
-
     <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-num">10<em>+</em></div>
-        <div class="stat-label">Categories</div>
-      </div>
+      <div class="stat"><div class="stat-num">32<em>+</em></div><div class="stat-label">Live Apps</div></div>
       <div class="stat-div"></div>
-      <div class="stat">
-        <div class="stat-num"><em>∞</em></div>
-        <div class="stat-label">Growing Portfolio</div>
-      </div>
+      <div class="stat"><div class="stat-num"><em>∞</em></div><div class="stat-label">Growing</div></div>
       <div class="stat-div"></div>
-      <div class="stat">
-        <div class="stat-num">1<em>×</em></div>
-        <div class="stat-label">Unified Hub</div>
-      </div>
+      <div class="stat"><div class="stat-num">1<em>×</em></div><div class="stat-label">Unified Hub</div></div>
     </div>
   </div>
 </section>
 
 <!-- MARQUEE -->
 <div class="marquee-section">
-  <div class="marquee-track" id="marquee">
-    <span class="marquee-item"><em>💰</em> Finance<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>🏥</em> Health<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>🎨</em> Creative<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>🚗</em> Auto<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>💼</em> Business<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>🧒</em> Kids<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>🎮</em> Hobby<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>⚙️</em> Developer<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>💰</em> Finance<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>🏥</em> Health<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>🎨</em> Creative<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>🚗</em> Auto<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>💼</em> Business<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>🧒</em> Kids<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>🎮</em> Hobby<span class="marquee-sep">·</span></span>
-    <span class="marquee-item"><em>⚙️</em> Developer<span class="marquee-sep">·</span></span>
-  </div>
+  <div class="marquee-track"><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/j-vox-acc.jpg" alt="J-VOX ACC" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🎙️</span>
+      </div>
+      J-VOX ACC <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/listener-pro-ge.jpg" alt="Listener Pro" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🤖</span>
+      </div>
+      Listener Pro <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/axiom.jpg" alt="Axiom" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">📈</span>
+      </div>
+      Axiom <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/armory.jpg" alt="Armory" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🛡️</span>
+      </div>
+      Armory <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/unplugged.jpg" alt="Unplugged" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🎸</span>
+      </div>
+      Unplugged <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/apex.jpg" alt="Apex" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🚗</span>
+      </div>
+      Apex <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/infuse.jpg" alt="Infuse" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">✨</span>
+      </div>
+      Infuse <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/lazscan-ai.jpg" alt="LazScan AI" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🔍</span>
+      </div>
+      LazScan AI <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/kinetic-portfolio.jpg" alt="Kinetic" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">💹</span>
+      </div>
+      Kinetic <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/scout-ai.jpg" alt="Scout AI" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🔎</span>
+      </div>
+      Scout AI <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/kids-arcade.jpg" alt="Kids Arcade" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🕹️</span>
+      </div>
+      Kids Arcade <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/lazpool.jpg" alt="LazPool" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🏊</span>
+      </div>
+      LazPool <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/j-vox-acc.jpg" alt="J-VOX ACC" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🎙️</span>
+      </div>
+      J-VOX ACC <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/listener-pro-ge.jpg" alt="Listener Pro" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🤖</span>
+      </div>
+      Listener Pro <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/axiom.jpg" alt="Axiom" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">📈</span>
+      </div>
+      Axiom <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/armory.jpg" alt="Armory" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🛡️</span>
+      </div>
+      Armory <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/unplugged.jpg" alt="Unplugged" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🎸</span>
+      </div>
+      Unplugged <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/apex.jpg" alt="Apex" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🚗</span>
+      </div>
+      Apex <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/infuse.jpg" alt="Infuse" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">✨</span>
+      </div>
+      Infuse <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/lazscan-ai.jpg" alt="LazScan AI" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🔍</span>
+      </div>
+      LazScan AI <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/kinetic-portfolio.jpg" alt="Kinetic" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">💹</span>
+      </div>
+      Kinetic <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/scout-ai.jpg" alt="Scout AI" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🔎</span>
+      </div>
+      Scout AI <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/kids-arcade.jpg" alt="Kids Arcade" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🕹️</span>
+      </div>
+      Kids Arcade <span class="marquee-sep">·</span>
+    </span><span class="marquee-item">
+      <div class="marquee-app-icon">
+        <img src="icons/lazpool.jpg" alt="LazPool" style="width:100%;height:100%;object-fit:cover;border-radius:6px;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <span class="mq-fallback" style="display:none;font-size:14px;">🏊</span>
+      </div>
+      LazPool <span class="marquee-sep">·</span>
+    </span></div>
 </div>
 
-<!-- CATEGORIES -->
-<section class="categories" id="categories">
+<!-- APPS SECTION -->
+<section class="apps-section" id="apps">
   <div class="reveal">
-    <div class="section-label">What's Inside</div>
-    <h2 class="section-title">Apps for Every<br><em>Corner of Life</em></h2>
+    <div class="section-label">The Full Portfolio</div>
+    <h2 class="section-title">All <em>28 Apps</em>,<br>One Place</h2>
+    <p class="section-sub">From AI assistants to kids games, stock screeners to pool controllers — every app lives inside Nexus.</p>
   </div>
-  <div class="cat-grid reveal">
-    <div class="cat-card">
-      <span class="cat-icon">💰</span>
-      <div class="cat-name">Finance</div>
-      <div class="cat-desc">Budgets, expenses, investments & net worth tracking.</div>
+  <div class="apps-grid reveal">
+    <div class="app-card" data-cat="hub · platform">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061018,#0d2030);border-color:rgba(0,212,255,0.2);">
+          <img src="icons/nexus.jpg" alt="NEXUS" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">✕</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Hub · Platform</div>
+        <div class="app-card-name">NEXUS</div>
+        <div class="app-card-desc">Central App Hub</div>
+      </div>
+      <div class="app-pip" style="background:#00d4ff;box-shadow:0 0 6px rgba(0,212,255,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
     </div>
-    <div class="cat-card">
-      <span class="cat-icon">🏥</span>
-      <div class="cat-name">Health</div>
-      <div class="cat-desc">Fitness logs, nutrition, wellness journeys & vitals.</div>
+    <div class="app-card" data-cat="communication · voice">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061018,#0d2030);border-color:rgba(0,212,255,0.2);">
+          <img src="icons/j-vox-acc.jpg" alt="J-VOX ACC" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🎙️</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Communication · Voice</div>
+        <div class="app-card-name">J-VOX ACC</div>
+        <div class="app-card-desc">ACC Communication</div>
+      </div>
+      <div class="app-pip" style="background:#00d4ff;box-shadow:0 0 6px rgba(0,212,255,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
     </div>
-    <div class="cat-card">
-      <span class="cat-icon">🎨</span>
-      <div class="cat-name">Creative</div>
-      <div class="cat-desc">Tools for artists, writers, musicians & makers.</div>
+    <div class="app-card" data-cat="productivity · tools">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061018,#0d2030);border-color:rgba(0,212,255,0.2);">
+          <img src="icons/brvty.jpg" alt="BRVTY" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">📋</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Productivity · Tools</div>
+        <div class="app-card-name">BRVTY</div>
+        <div class="app-card-desc">Application Platform</div>
+      </div>
+      <div class="app-pip" style="background:#00d4ff;box-shadow:0 0 6px rgba(0,212,255,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
     </div>
-    <div class="cat-card">
-      <span class="cat-icon">💼</span>
-      <div class="cat-name">Business</div>
-      <div class="cat-desc">Productivity, project management & client tools.</div>
+    <div class="app-card" data-cat="security · developer">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061018,#0d2030);border-color:rgba(0,212,255,0.2);">
+          <img src="icons/armory.jpg" alt="ARMORY" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🛡️</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Security · Developer</div>
+        <div class="app-card-name">ARMORY</div>
+        <div class="app-card-desc">Security Inventory</div>
+      </div>
+      <div class="app-pip" style="background:#00d4ff;box-shadow:0 0 6px rgba(0,212,255,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
     </div>
-    <div class="cat-card">
-      <span class="cat-icon">🚗</span>
-      <div class="cat-name">Auto</div>
-      <div class="cat-desc">Vehicle maintenance, logs, fuel tracking & reminders.</div>
+    <div class="app-card" data-cat="project mgmt · business">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#100a00,#2a1800);border-color:rgba(201,129,58,0.3);">
+          <img src="icons/lazforge.jpg" alt="LazForge v2.0" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🔧</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Project Mgmt · Business</div>
+        <div class="app-card-name">LazForge v2.0</div>
+        <div class="app-card-desc">Project Center</div>
+      </div>
+      <div class="app-pip" style="background:#c9813a;box-shadow:0 0 6px rgba(201,129,58,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
     </div>
-    <div class="cat-card">
-      <span class="cat-icon">🧒</span>
-      <div class="cat-name">Kids</div>
-      <div class="cat-desc">Educational, fun & safe apps designed for children.</div>
+    <div class="app-card" data-cat="ai · productivity">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#0a0a1e,#12183a);border-color:rgba(139,92,246,0.3);">
+          <img src="icons/listener-pro-ge.jpg" alt="Listener Pro GE" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🤖</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">AI · Productivity</div>
+        <div class="app-card-name">Listener Pro GE</div>
+        <div class="app-card-desc">Conversational AI — Groq</div>
+      </div>
+      <div class="app-pip" style="background:#8b5cf6;box-shadow:0 0 6px rgba(139,92,246,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
     </div>
-    <div class="cat-card">
-      <span class="cat-icon">🎮</span>
-      <div class="cat-name">Hobby</div>
-      <div class="cat-desc">Collections, tracking & tools for every passion.</div>
+    <div class="app-card" data-cat="health · wellness">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061412,#0a2820);border-color:rgba(61,186,122,0.25);">
+          <img src="icons/wellness-strategy.jpg" alt="Wellness Strategy Suite" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🌿</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Health · Wellness</div>
+        <div class="app-card-name">Wellness Strategy Suite</div>
+        <div class="app-card-desc">Wellness Center</div>
+      </div>
+      <div class="app-pip" style="background:#3dba7a;box-shadow:0 0 6px rgba(61,186,122,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
     </div>
-    <div class="cat-card">
-      <span class="cat-icon">⚙️</span>
-      <div class="cat-name">Developer</div>
-      <div class="cat-desc">Code utilities, converters, API tools & dev helpers.</div>
+    <div class="app-card" data-cat="music · hobby">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#100a00,#2a1800);border-color:rgba(201,129,58,0.3);">
+          <img src="icons/unplugged.jpg" alt="UNPLUGGED v1.0" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🎸</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Music · Hobby</div>
+        <div class="app-card-name">UNPLUGGED v1.0</div>
+        <div class="app-card-desc">Musical Collection & Knowledge</div>
+      </div>
+      <div class="app-pip" style="background:#c9813a;box-shadow:0 0 6px rgba(201,129,58,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
     </div>
-    <div class="cat-card" style="border-style: dashed; border-color: rgba(0,212,255,0.12);">
-      <span class="cat-icon">✦</span>
-      <div class="cat-name">And More</div>
-      <div class="cat-desc">New categories and apps added regularly. Always evolving.</div>
+    <div class="app-card" data-cat="business · ai">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#0a0a1e,#12183a);border-color:rgba(139,92,246,0.3);">
+          <img src="icons/marketmaster-ai.jpg" alt="MarketMaster AI" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🛒</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Business · AI</div>
+        <div class="app-card-name">MarketMaster AI</div>
+        <div class="app-card-desc">Marketplace Seller Tool</div>
+      </div>
+      <div class="app-pip" style="background:#8b5cf6;box-shadow:0 0 6px rgba(139,92,246,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
     </div>
+    <div class="app-card" data-cat="developer · tools">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#100a00,#2a1800);border-color:rgba(201,129,58,0.3);">
+          <img src="icons/lazlab.jpg" alt="LAZLAB" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">⚗️</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Developer · Tools</div>
+        <div class="app-card-name">LAZLAB</div>
+        <div class="app-card-desc">Debug Apps</div>
+      </div>
+      <div class="app-pip" style="background:#c9813a;box-shadow:0 0 6px rgba(201,129,58,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="creativity · dev">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#0a0a1e,#12183a);border-color:rgba(139,92,246,0.3);">
+          <img src="icons/infuse.jpg" alt="INFUSE v4.0" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">✨</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Creativity · Dev</div>
+        <div class="app-card-name">INFUSE v4.0</div>
+        <div class="app-card-desc">Build and Create</div>
+      </div>
+      <div class="app-pip" style="background:#8b5cf6;box-shadow:0 0 6px rgba(139,92,246,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="automotive · tools">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#100a00,#2a1800);border-color:rgba(201,129,58,0.3);">
+          <img src="icons/apex.jpg" alt="APEX" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🚗</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Automotive · Tools</div>
+        <div class="app-card-name">APEX</div>
+        <div class="app-card-desc">Auto Analyzer</div>
+      </div>
+      <div class="app-pip" style="background:#c9813a;box-shadow:0 0 6px rgba(201,129,58,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="automotive · ai">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061018,#0d2030);border-color:rgba(0,212,255,0.2);">
+          <img src="icons/lazscan-ai.jpg" alt="LazScan AI" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🔍</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Automotive · AI</div>
+        <div class="app-card-name">LazScan AI</div>
+        <div class="app-card-desc">ODB Scanner Tool</div>
+      </div>
+      <div class="app-pip" style="background:#00d4ff;box-shadow:0 0 6px rgba(0,212,255,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="finance · business">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061018,#0d2030);border-color:rgba(0,212,255,0.2);">
+          <img src="icons/axiom.jpg" alt="AXIOM" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">📈</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Finance · Business</div>
+        <div class="app-card-name">AXIOM</div>
+        <div class="app-card-desc">Stock Screener</div>
+      </div>
+      <div class="app-pip" style="background:#00d4ff;box-shadow:0 0 6px rgba(0,212,255,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="finance · investment">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061412,#0a2820);border-color:rgba(61,186,122,0.25);">
+          <img src="icons/kinetic-portfolio.jpg" alt="Kinetic Portfolio Terminal" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">💹</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Finance · Investment</div>
+        <div class="app-card-name">Kinetic Portfolio Terminal</div>
+        <div class="app-card-desc">Portfolio Analyzer</div>
+      </div>
+      <div class="app-pip" style="background:#3dba7a;box-shadow:0 0 6px rgba(61,186,122,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="real estate · business">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061018,#0d2030);border-color:rgba(0,212,255,0.2);">
+          <img src="icons/lazestate.jpg" alt="LazEstate" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🏠</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Real Estate · Business</div>
+        <div class="app-card-name">LazEstate</div>
+        <div class="app-card-desc">Real Estate Management</div>
+      </div>
+      <div class="app-pip" style="background:#00d4ff;box-shadow:0 0 6px rgba(0,212,255,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="business · integration">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#100a00,#2a1800);border-color:rgba(201,129,58,0.3);">
+          <img src="icons/odoo-laz.jpg" alt="Odoo Email Link (Laz)" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">📧</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Business · Integration</div>
+        <div class="app-card-name">Odoo Email Link (Laz)</div>
+        <div class="app-card-desc">Premium Odoo Assistant</div>
+      </div>
+      <div class="app-pip" style="background:#c9813a;box-shadow:0 0 6px rgba(201,129,58,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="business · integration">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#100a00,#2a1800);border-color:rgba(201,129,58,0.3);">
+          <img src="icons/odoo-user.jpg" alt="Odoo Email Link (User)" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">📬</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Business · Integration</div>
+        <div class="app-card-name">Odoo Email Link (User)</div>
+        <div class="app-card-desc">Odoo Activity Assistant</div>
+      </div>
+      <div class="app-pip" style="background:#c9813a;box-shadow:0 0 6px rgba(201,129,58,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="web · media">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061412,#0a2820);border-color:rgba(61,186,122,0.25);">
+          <img src="icons/trsav.jpg" alt="TRSAV" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🌐</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Web · Media</div>
+        <div class="app-card-name">TRSAV</div>
+        <div class="app-card-desc">Website Platform</div>
+      </div>
+      <div class="app-pip" style="background:#3dba7a;box-shadow:0 0 6px rgba(61,186,122,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="hr · ai">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#0a0a1e,#12183a);border-color:rgba(139,92,246,0.3);">
+          <img src="icons/scout-ai.jpg" alt="Scout AI" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🔎</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">HR · AI</div>
+        <div class="app-card-name">Scout AI</div>
+        <div class="app-card-desc">Candidate Screener</div>
+      </div>
+      <div class="app-pip" style="background:#8b5cf6;box-shadow:0 0 6px rgba(139,92,246,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="education · business">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061018,#0d2030);border-color:rgba(0,212,255,0.2);">
+          <img src="icons/trs-training.jpg" alt="TRS Training LE" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🎓</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Education · Business</div>
+        <div class="app-card-name">TRS Training LE</div>
+        <div class="app-card-desc">Training Platform</div>
+      </div>
+      <div class="app-pip" style="background:#00d4ff;box-shadow:0 0 6px rgba(0,212,255,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="kids · education">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061412,#0a2820);border-color:rgba(61,186,122,0.25);">
+          <img src="icons/cathys-neighborhood.jpg" alt="Cathy's Neighborhood" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🏘️</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Kids · Education</div>
+        <div class="app-card-name">Cathy's Neighborhood</div>
+        <div class="app-card-desc">Children's Game</div>
+      </div>
+      <div class="app-pip" style="background:#3dba7a;box-shadow:0 0 6px rgba(61,186,122,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="kids · entertainment">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#0a0a1e,#12183a);border-color:rgba(139,92,246,0.3);">
+          <img src="icons/kids-arcade.jpg" alt="Kids Arcade ✨" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🕹️</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Kids · Entertainment</div>
+        <div class="app-card-name">Kids Arcade ✨</div>
+        <div class="app-card-desc">Arcade Games</div>
+      </div>
+      <div class="app-pip" style="background:#8b5cf6;box-shadow:0 0 6px rgba(139,92,246,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="kids · creative">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#0a0a1e,#12183a);border-color:rgba(139,92,246,0.3);">
+          <img src="icons/story-magic.jpg" alt="Story Magic ✨" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">📖</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Kids · Creative</div>
+        <div class="app-card-name">Story Magic ✨</div>
+        <div class="app-card-desc">Story Builder</div>
+      </div>
+      <div class="app-pip" style="background:#8b5cf6;box-shadow:0 0 6px rgba(139,92,246,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="creative · media">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#100a00,#2a1800);border-color:rgba(201,129,58,0.3);">
+          <img src="icons/remix-reel.jpg" alt="Remix Reel" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🎬</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Creative · Media</div>
+        <div class="app-card-name">Remix Reel</div>
+        <div class="app-card-desc">Movie Art Engine</div>
+      </div>
+      <div class="app-pip" style="background:#c9813a;box-shadow:0 0 6px rgba(201,129,58,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="kids · creative">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061412,#0a2820);border-color:rgba(61,186,122,0.25);">
+          <img src="icons/little-davinci.jpg" alt="Little DaVinci" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🎨</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Kids · Creative</div>
+        <div class="app-card-name">Little DaVinci</div>
+        <div class="app-card-desc">Creative Art Builder</div>
+      </div>
+      <div class="app-pip" style="background:#3dba7a;box-shadow:0 0 6px rgba(61,186,122,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="ai · productivity">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#0a0a1e,#12183a);border-color:rgba(139,92,246,0.3);">
+          <img src="icons/listener-pro.jpg" alt="Listener Pro" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🎤</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">AI · Productivity</div>
+        <div class="app-card-name">Listener Pro</div>
+        <div class="app-card-desc">Conversational AI — Gemini</div>
+      </div>
+      <div class="app-pip" style="background:#8b5cf6;box-shadow:0 0 6px rgba(139,92,246,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+    <div class="app-card" data-cat="home · iot">
+      <div class="app-card-icon" style="background:linear-gradient(135deg,#061018,#0d2030);border-color:rgba(0,212,255,0.2);">
+          <img src="icons/lazpool.jpg" alt="LAZPOOL" class="app-icon-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="app-icon-fallback" style="display:none;">🏊</span>
+        </div>
+      <div class="app-card-body">
+        <div class="app-card-tag">Home · IoT</div>
+        <div class="app-card-name">LAZPOOL</div>
+        <div class="app-card-desc">Pool Controller</div>
+      </div>
+      <div class="app-pip" style="background:#00d4ff;box-shadow:0 0 6px rgba(0,212,255,0.6);width:7px;height:7px;border-radius:50%;margin-top:2px;flex-shrink:0;"></div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:48px;" class="reveal">
+    <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--dim);">✦ &nbsp; More apps added continuously &nbsp; ✦</p>
   </div>
 </section>
 
 <!-- FEATURES -->
 <section class="features" id="features">
   <div class="features-inner">
-    <div class="feature-visual reveal">
+    <div class="reveal">
       <div class="mockup-shell">
         <div class="mockup-bar">
-          <div class="mockup-dot"></div>
-          <div class="mockup-dot"></div>
-          <div class="mockup-dot"></div>
+          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
           <div class="mockup-title-bar">Nexus Suite — Dashboard</div>
         </div>
         <div class="mockup-body">
           <div class="mock-card">
-            <span class="mock-emoji">💰</span>
-            <div class="mock-label">Budget</div>
-            <div class="mock-pip pip-green"></div>
+            <div class="mock-icon-wrap">
+              <img src="icons/axiom.jpg" alt="Axiom" style="width:100%;height:100%;object-fit:cover;border-radius:7px;"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+              <span style="display:none;font-size:20px;">📈</span>
+            </div>
+            <div class="mock-label">Axiom</div>
+            <div style="width:6px;height:6px;border-radius:50%;margin:6px auto 0;background:#00d4ff;box-shadow:0 0 5px #00d4ff;"></div>
           </div>
           <div class="mock-card">
-            <span class="mock-emoji">🏃</span>
-            <div class="mock-label">Fitness</div>
-            <div class="mock-pip pip-cyan"></div>
+            <div class="mock-icon-wrap">
+              <img src="icons/armory.jpg" alt="Armory" style="width:100%;height:100%;object-fit:cover;border-radius:7px;"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+              <span style="display:none;font-size:20px;">🛡️</span>
+            </div>
+            <div class="mock-label">Armory</div>
+            <div style="width:6px;height:6px;border-radius:50%;margin:6px auto 0;background:#00d4ff;box-shadow:0 0 5px #00d4ff;"></div>
           </div>
           <div class="mock-card">
-            <span class="mock-emoji">📝</span>
-            <div class="mock-label">Notes</div>
-            <div class="mock-pip pip-green"></div>
+            <div class="mock-icon-wrap">
+              <img src="icons/unplugged.jpg" alt="Unplugged" style="width:100%;height:100%;object-fit:cover;border-radius:7px;"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+              <span style="display:none;font-size:20px;">🎸</span>
+            </div>
+            <div class="mock-label">Unplugged</div>
+            <div style="width:6px;height:6px;border-radius:50%;margin:6px auto 0;background:#c9813a;box-shadow:0 0 5px #c9813a;"></div>
           </div>
           <div class="mock-card">
-            <span class="mock-emoji">🚗</span>
-            <div class="mock-label">Auto</div>
-            <div class="mock-pip pip-amber"></div>
+            <div class="mock-icon-wrap">
+              <img src="icons/listener-pro-ge.jpg" alt="Listener" style="width:100%;height:100%;object-fit:cover;border-radius:7px;"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+              <span style="display:none;font-size:20px;">🤖</span>
+            </div>
+            <div class="mock-label">Listener</div>
+            <div style="width:6px;height:6px;border-radius:50%;margin:6px auto 0;background:#8b5cf6;box-shadow:0 0 5px #8b5cf6;"></div>
           </div>
           <div class="mock-card">
-            <span class="mock-emoji">🎨</span>
-            <div class="mock-label">Studio</div>
-            <div class="mock-pip pip-cyan"></div>
+            <div class="mock-icon-wrap">
+              <img src="icons/apex.jpg" alt="Apex" style="width:100%;height:100%;object-fit:cover;border-radius:7px;"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+              <span style="display:none;font-size:20px;">🚗</span>
+            </div>
+            <div class="mock-label">Apex</div>
+            <div style="width:6px;height:6px;border-radius:50%;margin:6px auto 0;background:#c9813a;box-shadow:0 0 5px #c9813a;"></div>
           </div>
           <div class="mock-card">
-            <span class="mock-emoji">📊</span>
-            <div class="mock-label">Reports</div>
-            <div class="mock-pip pip-green"></div>
+            <div class="mock-icon-wrap">
+              <img src="icons/infuse.jpg" alt="Infuse" style="width:100%;height:100%;object-fit:cover;border-radius:7px;"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+              <span style="display:none;font-size:20px;">✨</span>
+            </div>
+            <div class="mock-label">Infuse</div>
+            <div style="width:6px;height:6px;border-radius:50%;margin:6px auto 0;background:#8b5cf6;box-shadow:0 0 5px #8b5cf6;"></div>
           </div>
         </div>
       </div>
     </div>
-    <div class="features-copy reveal">
+    <div class="reveal">
       <div class="section-label">Why Nexus Suite</div>
       <h2 class="section-title">One Hub.<br><em>Everything</em> Connected.</h2>
       <ul class="feature-list">
-        <li class="feature-item">
-          <div class="feature-check">✓</div>
-          <div class="feature-text"><strong>Single dashboard</strong> for every app — no switching between portals or remembering different URLs.</div>
-        </li>
-        <li class="feature-item">
-          <div class="feature-check">✓</div>
-          <div class="feature-text"><strong>Ever-growing library</strong> of purpose-built apps released continuously across all life domains.</div>
-        </li>
-        <li class="feature-item">
-          <div class="feature-check">✓</div>
-          <div class="feature-text"><strong>Works as a PWA</strong> — install it on any device and access your full suite offline or on the go.</div>
-        </li>
-        <li class="feature-item">
-          <div class="feature-check">✓</div>
-          <div class="feature-text"><strong>Built by LAZLAB</strong>, a studio that makes apps that actually make a difference in everyday life.</div>
-        </li>
+        <li class="feature-item"><div class="feature-check">✓</div><div class="feature-text"><strong>Single dashboard</strong> for all 28+ apps — no juggling portals or bookmarks.</div></li>
+        <li class="feature-item"><div class="feature-check">✓</div><div class="feature-text"><strong>Every category covered</strong> — AI, finance, health, automotive, kids, creative, business, IoT.</div></li>
+        <li class="feature-item"><div class="feature-check">✓</div><div class="feature-text"><strong>PWA-ready</strong> — install on any device and access your full suite offline, anywhere.</div></li>
+        <li class="feature-item"><div class="feature-check">✓</div><div class="feature-text"><strong>Built by LAZLAB</strong> — a studio dedicated to apps that make a real difference in everyday life.</div></li>
       </ul>
     </div>
   </div>
@@ -825,9 +825,7 @@ footer {
 <!-- VISION -->
 <section class="vision" id="vision">
   <div class="reveal">
-    <p class="vision-quote">
-      Apps that make a difference aren't built once — they're grown over time, shaped by the lives they touch.
-    </p>
+    <p class="vision-quote">Apps that make a difference aren't built once — they're grown over time, shaped by the lives they touch.</p>
     <p class="vision-sub">— The LAZLAB Philosophy</p>
   </div>
 </section>
@@ -836,11 +834,10 @@ footer {
 <section class="cta-section" id="cta">
   <div class="cta-inner reveal">
     <div class="section-label">Get Started</div>
-    <h2 class="section-title">Ready to Enter<br><em>the Nexus?</em></h2>
-    <p class="cta-desc">Launch Nexus Suite and access your entire portfolio of apps from one elegant, unified hub.</p>
-    <a href="index.html" class="btn-primary" style="font-size: 13px; padding: 16px 44px;">
-      Open Nexus Suite
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <h2 class="section-title" style="margin-bottom:16px;">Ready to Enter<br><em>the Nexus?</em></h2>
+    <p class="cta-desc">Launch Nexus Suite and access your entire portfolio of 28+ apps from one elegant, unified hub.</p>
+    <a href="index.html" class="btn-primary" style="font-size:13px;padding:16px 44px;">
+      Open Nexus Suite&nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
   </div>
 </section>
@@ -848,16 +845,12 @@ footer {
 <!-- FOOTER -->
 <footer>
   <div class="footer-left">
-    <!-- LAZLAB Logo Mark -->
     <div class="lazlab-logo">
       <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- L letterform + lab flask hybrid -->
         <rect x="3" y="3" width="2.5" height="11" fill="#00d4ff" opacity="0.9"/>
         <rect x="3" y="11.5" width="7" height="2.5" fill="#00d4ff" opacity="0.9"/>
-        <!-- lab flask dot -->
         <circle cx="14.5" cy="13.5" r="2.5" fill="#8b5cf6" opacity="0.85"/>
         <rect x="13.2" y="6" width="2.6" height="5" rx="1" fill="#8b5cf6" opacity="0.6"/>
-        <!-- crossbar -->
         <rect x="12" y="8.5" width="5" height="1" fill="#00d4ff" opacity="0.4"/>
       </svg>
     </div>
@@ -871,23 +864,14 @@ footer {
 </footer>
 
 <script>
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Stagger cat-card children
-document.querySelectorAll('.cat-card').forEach((card, i) => {
-  card.style.transitionDelay = `${i * 0.05}s`;
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, {threshold:0.1, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+document.querySelectorAll('.app-card').forEach((card, i) => {
+  card.style.transitionDelay = `${i * 0.04}s`;
   card.classList.add('reveal');
-  observer.observe(card);
+  obs.observe(card);
 });
 </script>
 </body>
