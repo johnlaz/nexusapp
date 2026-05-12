@@ -3,8 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nexus">
 <title>Nexus Suite — Every App You Need</title>
 <meta name="description" content="Nexus Suite by LAZLAB — 32 purpose-built apps spanning AI, finance, health, automotive, kids, creative, business, and beyond.">
+<link rel="manifest" href="/nexusapp/manifest.json">
+<link rel="apple-touch-icon" href="/nexusapp/icons/icon-192.png">
+
+<!-- Service Worker Registration -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('/nexusapp/sw.js', { scope: '/nexusapp/' })
+        .then(reg => {
+          console.log('✓ Nexus Service Worker registered');
+          
+          // Check for updates every 60 seconds
+          setInterval(() => reg.update(), 60000);
+          
+          // Notify user of new version
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                console.log('✓ New Nexus version available');
+                window.dispatchEvent(new CustomEvent('swupdate'));
+              }
+            });
+          });
+        })
+        .catch(err => console.error('✗ Nexus SW failed:', err));
+    });
+  }
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,900&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>

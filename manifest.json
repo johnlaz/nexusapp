@@ -1,0 +1,84 @@
+{
+  "name": "Nexus Suite — Every App You Need",
+  "short_name": "Nexus",
+  "description": "Nexus Suite by LAZLAB — 32 purpose-built apps spanning AI, finance, health, automotive, kids, creative, business, and beyond.",
+  "start_url": "/nexusapp/",
+  "scope": "/nexusapp/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#070b10",
+  "theme_color": "#00d4ff",
+  "lang": "en",
+  "categories": ["productivity", "utilities", "lifestyle"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/nexusapp/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/nexusapp/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/nexusapp/icons/icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/nexusapp/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/nexusapp/media/screenshot-narrow.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Nexus on mobile"
+    },
+    {
+      "src": "/nexusapp/media/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Nexus app suite"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Browse Apps",
+      "short_name": "Apps",
+      "description": "View all apps in Nexus",
+      "url": "/nexusapp/#apps",
+      "icons": [
+        {
+          "src": "/nexusapp/icons/icon-96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Launch Portal",
+      "short_name": "Portal",
+      "description": "Open Nexus portal",
+      "url": "/nexusapp/app/",
+      "icons": [
+        {
+          "src": "/nexusapp/icons/icon-96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
