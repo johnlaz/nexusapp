@@ -1,7 +1,7 @@
 // Nexus Suite Service Worker
 // Strategy: Network-first for HTML/content, Cache-first for assets
 
-const CACHE_NAME = 'nexus-v1';
+const CACHE_NAME = 'nexus-v2';
 const RUNTIME_CACHE = 'nexus-runtime-v1';
 
 // Critical assets to pre-cache on install
