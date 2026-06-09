@@ -1,14 +1,14 @@
-// NEXUS v4.0 — Service Worker
-const CACHE_NAME = 'nexus-v4.0';
+// NEXUS v4.1 — Service Worker
+const CACHE_NAME = 'nexus-v4.1';
 const STATIC_ASSETS = [
   './index.html',
   './manifest.json',
-  './icons/favicon.ico',
-  './icons/icon-16.png',
-  './icons/icon-32.png',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/apple-touch-icon.png',
+  './favicon.ico',
+  './icon-16.png',
+  './icon-32.png',
+  './icon-192.png',
+  './icon-512.png',
+  './apple-touch-icon.png',
   'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500;600&display=swap'
 ];
 
