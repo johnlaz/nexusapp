@@ -1855,6 +1855,51 @@ body.vm-list .card-status-badge { position: static; order: 5; background: none; 
   body.vm-cards .card-status-badge { top: auto; bottom: 14px; right: 46px; }
 }
 
+/* ── Modals on phones/tablets: sit above the bottom nav (no more cut-off), scroll inside ── */
+@media (max-width: 1024px) {
+  .modal-backdrop { z-index: 300; }
+  .modal-body {
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));   /* nav no longer overlaps, so drop the 60px clearance */
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    min-height: 0;
+  }
+  /* Section / Category order are short lists — centre them as dialogs instead of a bottom sheet */
+  #section-order-modal, #group-order-modal {
+    align-items: center;
+    padding: calc(16px + env(safe-area-inset-top, 0px)) 14px calc(16px + env(safe-area-inset-bottom, 0px));
+  }
+  #section-order-modal .modal-panel, #group-order-modal .modal-panel {
+    position: relative; bottom: auto; left: auto;
+    width: 100% !important; max-width: 460px !important;
+    max-height: 100%; border-radius: 16px;
+  }
+}
+
+/* ── Bottom nav: 3 buttons + collapse handle ── */
+.mobile-nav { transition: transform .25s cubic-bezier(.23,1,.32,1); }
+body.nav-collapsed .mobile-nav { transform: translateY(100%); }
+.nav-handle {
+  position: fixed; left: 50%; bottom: 60px; transform: translateX(-50%);
+  width: 56px; height: 20px; z-index: 201;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--surface); color: var(--dim);
+  border: 1px solid var(--border); border-bottom: none; border-radius: 10px 10px 0 0;
+  cursor: pointer; padding: 0; transition: bottom .25s cubic-bezier(.23,1,.32,1), opacity .25s;
+}
+.nav-handle svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; transition: transform .25s; }
+.nav-handle:hover, .nav-handle:focus-visible { color: var(--gold); }
+body.nav-collapsed .nav-handle { bottom: 0; opacity: .55; border-radius: 10px 10px 0 0; }
+body.nav-collapsed .nav-handle:hover { opacity: 1; }
+body.nav-collapsed .nav-handle svg { transform: rotate(180deg); }
+/* reclaim the space the nav used to take */
+body.nav-collapsed .dash-body { padding-bottom: 28px; }
+body.nav-collapsed .iframe-wrapper { padding-bottom: 0; }
+@media (max-width: 1024px) { .iframe-wrapper { padding-bottom: 80px; } body.nav-collapsed .iframe-wrapper { padding-bottom: 0; } }
+@media (prefers-reduced-motion: reduce) { .mobile-nav, .nav-handle, .nav-handle svg { transition: none; } }
+body.nav-collapsed .nav-handle { width: 44px; height: 14px; opacity: .4; background: var(--bg, #060a10); }
+body.nav-collapsed .nav-handle svg { width: 12px; height: 12px; }
+
 </style>
 </head>
 <body>
@@ -3633,10 +3678,28 @@ function refreshAll() {
   toast('Status refresh initiated');
 }
 
+// ── BOTTOM NAV: collapsible, remembered separately for the dashboard and for running apps ──
+function navKey() { return activeApp ? 'nexus-nav-app' : 'nexus-nav-dash'; }
+function navIsCollapsed() { try { return localStorage.getItem(navKey()) === '1'; } catch (e) { return false; } }
+function syncNav() {
+  const c = navIsCollapsed();
+  document.body.classList.toggle('nav-collapsed', c);
+  const h = document.getElementById('nav-handle');
+  if (h) {
+    h.setAttribute('aria-label', c ? 'Show navigation' : 'Hide navigation');
+    h.setAttribute('aria-expanded', c ? 'false' : 'true');
+  }
+}
+function toggleNav() {
+  try { localStorage.setItem(navKey(), navIsCollapsed() ? '0' : '1'); } catch (e) {}
+  syncNav();
+}
+
 // ── LAUNCH / NAV ──
 function launch(app) {
   trackRecent(app.id);
   activeApp = app;
+  syncNav();
 
   document.getElementById('dashboard-view').style.display = 'none';
   const iframeView = document.getElementById('iframe-view');
@@ -3688,6 +3751,7 @@ function launch(app) {
 
 function showDashboard() {
   activeApp = null;
+  syncNav();
   document.getElementById('dashboard-view').style.display = 'flex';
   document.getElementById('iframe-view').style.display = 'none';
   document.getElementById('app-frame').src = '';
@@ -5968,6 +6032,7 @@ body::before {
 // ── INIT ──
 loadStoredLogo();
 applyView();
+syncNav();
 updateGroqStatus();
 render();
 setTimeout(() => document.body.classList.add('booted'), 1400);
@@ -5984,6 +6049,7 @@ window.addEventListener('popstate', (e) => {
   if (activeApp) {
     // We're in an app — go to dashboard instead of leaving Nexus
     activeApp = null;
+    syncNav();
     document.getElementById('dashboard-view').style.display = 'flex';
     document.getElementById('iframe-view').style.display = 'none';
     document.getElementById('app-frame').src = '';
@@ -6024,16 +6090,12 @@ if ('serviceWorker' in navigator) {
     <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     Home
   </button>
-  <button class="mobile-nav-btn" onclick="openMobileSearch()" id="mob-search-btn">
-    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    Search
-  </button>
   <button class="mobile-nav-btn" onclick="openModal()" id="mob-settings-btn">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     Settings
   </button>
 </nav>
-
+<button class="nav-handle" id="nav-handle" onclick="toggleNav()" aria-label="Hide navigation" aria-expanded="true"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
 
 </body>
 </html>
