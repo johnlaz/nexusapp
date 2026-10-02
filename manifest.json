@@ -1,7 +1,7 @@
 {
   "name": "Nexus Suite — Every App You Need",
   "short_name": "Nexus",
-  "description": "Nexus Suite by LAZLAB — 32 purpose-built apps spanning AI, finance, health, automotive, kids, creative, business, and beyond.",
+  "description": "Nexus Suite by LAZLAB: one launcher and status board for 41 web apps spanning AI, finance, auto, business, creative tools and kids' learning.",
   "start_url": "/nexusapp/",
   "scope": "/nexusapp/",
   "display": "standalone",
@@ -9,7 +9,11 @@
   "background_color": "#070b10",
   "theme_color": "#00d4ff",
   "lang": "en",
-  "categories": ["productivity", "utilities", "lifestyle"],
+  "categories": [
+    "productivity",
+    "utilities",
+    "lifestyle"
+  ],
   "prefer_related_applications": false,
   "icons": [
     {
@@ -40,7 +44,7 @@
   "screenshots": [
     {
       "src": "/nexusapp/media/screenshot-narrow.png",
-      "sizes": "390x844",
+      "sizes": "780x1688",
       "type": "image/png",
       "form_factor": "narrow",
       "label": "Nexus on mobile"
