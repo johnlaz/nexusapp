@@ -1,7 +1,7 @@
 {
   "name": "Nexus Suite — Every App You Need",
   "short_name": "Nexus",
-  "description": "Nexus Suite by LAZLAB: one launcher and status board for 41 web apps spanning AI, finance, auto, business, creative tools and kids' learning.",
+  "description": "Nexus Suite by LAZLAB: one launcher and status board for 40 web apps spanning AI, finance, auto, business, creative tools and kids' learning.",
   "start_url": "/nexusapp/",
   "scope": "/nexusapp/",
   "display": "standalone",
