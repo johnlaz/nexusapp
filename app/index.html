@@ -1173,6 +1173,86 @@ main {
 }
 .add-app-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
 
+/* ── Apps & Keys: sticky search / sort / add toolbar ── */
+.ak-toolbar {
+  position: sticky; top: -24px; z-index: 20;   /* -24px = .modal-body's top padding, so it sticks flush under the tabs */
+  /* cancel .modal-body's padding so the bar sits flush with the tabs, and stays flush when stuck */
+  margin: -24px -28px 14px;
+  padding: 14px 28px 12px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.ak-row { display: flex; align-items: stretch; gap: 8px; }
+.ak-search { position: relative; flex: 1 1 auto; min-width: 0; }
+.ak-search svg {
+  position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+  width: 14px; height: 14px; stroke: var(--dim); fill: none; stroke-width: 2; pointer-events: none;
+}
+.ak-search input {
+  width: 100%; height: 100%; box-sizing: border-box;
+  background: var(--surface2); border: 1px solid var(--border); color: var(--white);
+  font-family: 'Instrument Sans', sans-serif; font-size: 13px;
+  padding: 9px 32px 9px 33px; border-radius: 6px; outline: none;
+  transition: border-color 0.2s;
+}
+.ak-search input::placeholder { color: var(--dim); }
+.ak-search input:focus { border-color: var(--gold-dim); }
+.ak-clear {
+  display: none; position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+  width: 26px; height: 26px; border-radius: 50%;
+  background: none; border: none; color: var(--dim);
+  font-size: 13px; line-height: 1; cursor: pointer;
+}
+.ak-clear.show { display: block; }
+.ak-clear:hover { color: var(--white); }
+.ak-add {
+  flex-shrink: 0; background: var(--gold); border: none; color: var(--on-accent);
+  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; padding: 0 14px; border-radius: 6px; cursor: pointer; white-space: nowrap;
+  transition: filter 0.2s;
+}
+.ak-add:hover { filter: brightness(1.1); }
+.ak-select {
+  flex: 1 1 auto; min-width: 0;
+  background: var(--surface2); border: 1px solid var(--border); color: var(--white);
+  font-family: 'DM Mono', monospace; font-size: 11px; padding: 8px 10px;
+  border-radius: 6px; outline: none; cursor: pointer; transition: border-color 0.2s;
+}
+.ak-select:focus { border-color: var(--gold-dim); }
+.ak-chip {
+  flex-shrink: 0; background: none; border: 1px solid var(--border); color: var(--dim);
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px;
+  padding: 0 11px; border-radius: 6px; cursor: pointer; white-space: nowrap; transition: all 0.2s;
+}
+.ak-chip:hover { border-color: var(--gold-dim); color: var(--gold); }
+.ak-chip.on { border-color: var(--gold); color: var(--gold); background: rgba(var(--accent-rgb), 0.10); }
+.ak-count {
+  flex-shrink: 0; align-self: center; min-width: 44px; text-align: right;
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1px;
+  color: var(--dim); text-transform: uppercase; white-space: nowrap;
+}
+.ak-empty { display: none; text-align: center; padding: 32px 12px; color: var(--dim); font-size: 12px; line-height: 1.7; }
+.ak-empty button {
+  background: none; border: none; color: var(--gold); cursor: pointer;
+  font: inherit; text-decoration: underline; padding: 0;
+}
+/* Section / Category order boxes tucked into one collapsible row so search results sit right under the toolbar */
+.ak-order { margin-bottom: 18px; }
+.ak-order > summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+  padding: 12px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+  transition: border-color 0.2s;
+}
+.ak-order > summary::-webkit-details-marker { display: none; }
+.ak-order > summary::after { content: '▾'; color: var(--dim); font-size: 12px; letter-spacing: 0; transition: transform 0.2s; }
+.ak-order[open] > summary::after { transform: rotate(180deg); }
+.ak-order > summary:hover { border-color: var(--gold-dim); }
+.ak-order-body { margin-top: 10px; }
+.ak-order-body > div:last-child { margin-bottom: 0 !important; }
+
 /* IO tab */
 .io-grid { display: grid; gap: 12px; }
 .io-btn {
@@ -2238,6 +2318,34 @@ html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *
     <div class="modal-body">
       <!-- APPS TAB -->
       <div id="tab-apps">
+        <!-- Search / sort / add — sticky so it stays reachable however long the list is -->
+        <div class="ak-toolbar" id="ak-toolbar">
+          <div class="ak-row">
+            <div class="ak-search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input id="ak-search" type="text" inputmode="search" autocomplete="off" autocapitalize="off" spellcheck="false"
+                placeholder="Search name, tag, URL, category…" aria-label="Search apps"
+                oninput="akSetQuery(this.value)" onkeydown="akSearchKey(event)">
+              <button class="ak-clear" id="ak-clear" type="button" onclick="akClearSearch()" aria-label="Clear search">✕</button>
+            </div>
+            <button class="ak-add" type="button" onclick="addApp()">+ Add</button>
+          </div>
+          <div class="ak-row">
+            <select class="ak-select" id="ak-sort" onchange="akSetSort(this.value)" aria-label="Sort apps">
+              <option value="original">Sort: Original order</option>
+              <option value="name-asc">Sort: Name A → Z</option>
+              <option value="name-desc">Sort: Name Z → A</option>
+              <option value="group">Sort: Category</option>
+              <option value="section">Sort: Section</option>
+            </select>
+            <button class="ak-chip" id="ak-keys" type="button" onclick="akToggleKeys()" aria-pressed="false"
+              title="Only show apps that have an API key / license set">🔑 Has key</button>
+            <span class="ak-count" id="ak-count"></span>
+          </div>
+        </div>
+        <details class="ak-order">
+          <summary>Section &amp; category order</summary>
+          <div class="ak-order-body">
         <div id="section-order-box" style="margin-bottom:18px;padding:14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
           <div>
             <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:4px;">Section Order</div>
@@ -2252,7 +2360,10 @@ html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *
           </div>
           <button onclick="openGroupOrderModal()" style="flex-shrink:0;background:none;border:1px solid var(--gold);color:var(--gold);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;padding:9px 16px;border-radius:6px;cursor:pointer;white-space:nowrap;text-transform:uppercase;">⇅ Reorder Categories</button>
         </div>
+        </div>
+        </details>
         <div id="config-rows"></div>
+        <div class="ak-empty" id="ak-empty">No apps match.<br><button type="button" onclick="akResetFilters()">Clear search &amp; filters</button></div>
         <button class="add-app-btn" onclick="addApp()">+ Add Application</button>
       </div>
 
@@ -2562,6 +2673,11 @@ function toast(msg, duration = 2000) {
 }
 
 function uid() { return Math.random().toString(36).slice(2, 9); }
+
+// Apps & Keys list view state (search / sort / key filter). View-only — never touches the real apps order.
+const AK = { q: '', sort: 'original', keysOnly: false, pinned: [] };
+const AK_SORTS = ['original', 'name-asc', 'name-desc', 'group', 'section'];
+try { const _s = localStorage.getItem('nexus-apps-sort'); if (AK_SORTS.includes(_s)) AK.sort = _s; } catch (e) {}
 
 // ── SECTION ORDER ──
 const SECTION_META = {
@@ -3927,6 +4043,7 @@ function refreshBodyScrollLock() {
 
 function openModal() {
   document.getElementById('config-modal').classList.add('open');
+  akReset();
   renderConfigRows();
   updateGroqStatus();
   initNotes();
@@ -3934,6 +4051,7 @@ function openModal() {
 }
 function closeModal() {
   document.getElementById('config-modal').classList.remove('open');
+  AK.pinned = [];
   render();
   refreshBodyScrollLock();
 }
@@ -3957,6 +4075,101 @@ function switchTab(e, tabId) {
   if (tabId === 'tab-groq')  groqOnTabOpen();
 }
 
+// ── APPS & KEYS: search / sort / key filter ──
+// These only change how the settings list is DISPLAYED. The real `apps` array (and so your dashboard
+// order) is never touched. renderConfigRows() builds the rows once; everything below just shows/hides
+// and re-orders those existing rows, so typing in the search box stays instant even with a long list.
+function akSyncUI() {
+  const q = document.getElementById('ak-search');
+  if (q && q.value !== AK.q) q.value = AK.q;
+  const s = document.getElementById('ak-sort');
+  if (s) s.value = AK.sort;
+  const k = document.getElementById('ak-keys');
+  if (k) { k.classList.toggle('on', AK.keysOnly); k.setAttribute('aria-pressed', AK.keysOnly ? 'true' : 'false'); }
+  const c = document.getElementById('ak-clear');
+  if (c) c.classList.toggle('show', !!AK.q);
+}
+function akReset() { AK.q = ''; AK.keysOnly = false; AK.pinned = []; akSyncUI(); }
+function akSetQuery(v) { AK.q = v || ''; akSyncUI(); applyAppsView(); }
+function akClearSearch() {
+  AK.q = ''; akSyncUI(); applyAppsView();
+  const i = document.getElementById('ak-search'); if (i) i.focus();
+}
+function akSearchKey(e) {
+  if (e.key === 'Escape' && AK.q) { e.preventDefault(); e.stopPropagation(); akClearSearch(); }
+}
+function akSetSort(v) {
+  if (!AK_SORTS.includes(v)) v = 'original';
+  AK.sort = v; AK.pinned = [];
+  try { localStorage.setItem('nexus-apps-sort', v); } catch (e) {}
+  akSyncUI(); applyAppsView();
+}
+function akToggleKeys() { AK.keysOnly = !AK.keysOnly; akSyncUI(); applyAppsView(); }
+function akResetFilters() { AK.q = ''; AK.keysOnly = false; akSyncUI(); applyAppsView(); }
+
+function applyAppsView() {
+  const container = document.getElementById('config-rows');
+  if (!container) return;
+  const rows = Array.from(container.children).filter(el => el.classList && el.classList.contains('config-row'));
+  const byId = new Map(apps.map((a, i) => [a.id, { a, i }]));
+  const items = rows.map(row => ({ row, ...(byId.get(row.dataset.appId) || {}) })).filter(it => it.a);
+
+  const terms = AK.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const hasKey = a => !!(a.key && String(a.key).trim());
+  const matches = a => {
+    if (AK.keysOnly && !hasKey(a)) return false;
+    if (!terms.length) return true;
+    const hay = [a.name, a.tag, a.desc, a.url, a.group, a.section || 'registered', a.meta && a.meta.title]
+      .filter(Boolean).join(' ').toLowerCase();
+    return terms.every(t => hay.includes(t));
+  };
+
+  const secRank = {};
+  getSectionOrder().forEach((k, i) => { secRank[k] = i; });
+  const cmpName  = (x, y) => (x.a.name || '').localeCompare(y.a.name || '', undefined, { sensitivity: 'base', numeric: true });
+  const grp      = x => (x.a.group || '').trim();
+  const cmpGroup = (x, y) => {
+    const gx = grp(x), gy = grp(y);
+    if (!gx !== !gy) return gx ? -1 : 1;                       // ungrouped apps last
+    return gx.localeCompare(gy, undefined, { sensitivity: 'base' });
+  };
+  const pinRank = id => { const p = AK.pinned.indexOf(id); return p === -1 ? Infinity : p; };
+
+  items.sort((x, y) => {
+    const px = pinRank(x.a.id), py = pinRank(y.a.id);
+    if (px !== py) return px < py ? -1 : 1;                      // just-added apps stay on top
+    switch (AK.sort) {
+      case 'name-asc':  return cmpName(x, y) || x.i - y.i;
+      case 'name-desc': return cmpName(y, x) || x.i - y.i;
+      case 'group':     return cmpGroup(x, y) || cmpName(x, y) || x.i - y.i;
+      case 'section': {
+        const sx = secRank[x.a.section || 'registered'], sy = secRank[y.a.section || 'registered'];
+        const rx = sx === undefined ? 99 : sx, ry = sy === undefined ? 99 : sy;
+        return (rx - ry) || cmpGroup(x, y) || cmpName(x, y) || x.i - y.i;
+      }
+      default:          return x.i - y.i;                        // original order
+    }
+  });
+
+  // Only touch the DOM order if it actually changed (keeps typing in search cheap)
+  const sameOrder = items.length === rows.length && items.every((it, k) => it.row === rows[k]);
+  if (!sameOrder) items.forEach(it => container.appendChild(it.row));
+
+  let shown = 0;
+  items.forEach(it => {
+    const ok = matches(it.a);
+    it.row.style.display = ok ? '' : 'none';
+    if (ok) shown++;
+  });
+
+  const total = apps.length;
+  const filtered = terms.length > 0 || AK.keysOnly;
+  const cnt = document.getElementById('ak-count');
+  if (cnt) cnt.textContent = filtered ? `${shown} / ${total}` : `${total} ${total === 1 ? 'app' : 'apps'}`;
+  const empty = document.getElementById('ak-empty');
+  if (empty) empty.style.display = (filtered && shown === 0) ? 'block' : 'none';
+}
+
 function renderConfigRows() {
   const container = document.getElementById('config-rows');
   container.innerHTML = '';
@@ -3973,6 +4186,7 @@ function renderConfigRows() {
 
     const row = document.createElement('div');
     row.className = 'config-row';
+    row.dataset.appId = app.id;
     row.innerHTML = `
       <div class="config-row-header">
         <div style="display:flex;align-items:center;gap:8px;">
@@ -4048,6 +4262,8 @@ function renderConfigRows() {
     `;
     container.appendChild(row);
   });
+  akSyncUI();
+  applyAppsView();   // re-apply current search / sort / filter to the freshly built rows
 }
 
 function escHtml(str) {
@@ -4144,9 +4360,17 @@ function debounceRescrape(app) {
 
 function addApp() {
   const newApp = { id: uid(), name: 'New App', tag: 'Application', desc: '', url: 'https://', key: '', meta: null };
-  apps.push(newApp);
-  renderConfigRows();
+  apps.push(newApp);   // still goes to the END of the real list, so your dashboard order doesn't shift…
   save();
+  // …but in this settings list it shows up at the TOP, with search/filters cleared so it can't be hidden.
+  AK.q = ''; AK.keysOnly = false;
+  AK.pinned.unshift(newApp.id);
+  akSyncUI();
+  renderConfigRows();
+  const body = document.querySelector('#config-modal .modal-body');
+  if (body) body.scrollTop = 0;
+  const nameInput = document.querySelector(`#config-rows .config-row[data-app-id="${newApp.id}"] input[placeholder="App Name"]`);
+  if (nameInput) { nameInput.focus(); nameInput.select(); }
 }
 
 function deleteApp(id) {
@@ -5928,7 +6152,7 @@ function openModalTab(tabId) {
   document.querySelectorAll('.modal-tab').forEach(t => {
     if (t.getAttribute('onclick')?.includes(tabId)) t.classList.add('active');
   });
-  if (tabId === 'tab-apps')  renderConfigRows();
+  if (tabId === 'tab-apps')  { akReset(); renderConfigRows(); }
   if (tabId === 'tab-notes') initNotes();
   if (tabId === 'tab-io')    vaultRenderGrid();
   if (tabId === 'tab-groq')  groqOnTabOpen();
