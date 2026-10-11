@@ -2499,6 +2499,15 @@ html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *
           </div>
         </div>
 
+        <!-- ── REFRESH / CLEAR CACHE ── -->
+        <div style="margin-bottom:20px;padding:14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--dim);text-transform:uppercase;margin-bottom:8px;">Refresh Nexus · v6.0</div>
+          <div style="font-size:11px;color:var(--dim);line-height:1.6;margin-bottom:12px;">
+            Stuck on an old version? This clears Nexus' cached files and reloads the latest from the server. Your apps, API keys, notes and vault are not touched.
+          </div>
+          <button id="clear-cache-btn" class="io-btn io-btn-ghost" onclick="clearNexusCache()" style="font-size:10px;padding:9px;width:100%;">⟳ &nbsp;Clear Cache &amp; Reload</button>
+        </div>
+
         <div style="height:1px;background:var(--border);margin-bottom:20px;"></div>
 
         <!-- ── APP DATA VAULT ── -->
@@ -6509,13 +6518,54 @@ if (window.innerWidth > 1024 && localStorage.getItem('nexus-sidebar-collapsed') 
 
 
 // ── SERVICE WORKER ──
+// Update-friendly: never trust the HTTP cache for sw.js, re-check on load and
+// whenever the tab becomes visible, and reload once when a new version takes over.
 if ('serviceWorker' in navigator) {
+  let swReloading = false;
+  const hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController || swReloading) return;   // first install: nothing to refresh
+    swReloading = true;
+    location.reload();
+  });
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(reg => console.log('[Nexus SW] Registered:', reg.scope))
+    navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
+      .then(reg => {
+        reg.update().catch(() => {});
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') reg.update().catch(() => {});
+        });
+      })
       .catch(err => console.warn('[Nexus SW] Failed:', err));
   });
 }
+
+// ── CLEAR NEXUS CACHE (this page only) ──
+// Removes Nexus' service worker + its caches, then reloads from the network.
+// Does NOT touch localStorage / IndexedDB, so apps, API keys, notes and vault files are safe.
+// The origin (johnlaz.github.io) is shared with every other LAZLAB app, so we
+// only remove registrations under /nexusapp/ and caches whose name starts with "nexus".
+async function clearNexusCache() {
+  const btn = document.getElementById('clear-cache-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Clearing…'; }
+  try {
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs
+        .filter(r => new URL(r.scope).pathname.startsWith('/nexusapp/'))
+        .map(r => r.unregister()));
+    }
+    if (window.caches) {
+      const keys = await caches.keys();
+      await Promise.all(keys.filter(k => k.toLowerCase().startsWith('nexus')).map(k => caches.delete(k)));
+    }
+  } catch (e) { console.warn('[Nexus] cache clear failed:', e); }
+  const u = new URL(location.href);
+  u.searchParams.set('fresh', Date.now());
+  location.replace(u.toString());
+}
+// Escape hatch if the app ever gets stuck: open  .../nexusapp/app/?reset=1
+if (new URLSearchParams(location.search).has('reset')) clearNexusCache();
 </script>
 <!-- Mobile bottom nav -->
 <nav class="mobile-nav">
