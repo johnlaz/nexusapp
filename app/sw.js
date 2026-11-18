@@ -1,7 +1,7 @@
 // NEXUS — Service Worker
 // Strategy: network-first for the app shell (so updates show up immediately),
 // stale-while-revalidate for icons/fonts, cached copy only as an offline fallback.
-const VERSION = '6.1';
+const VERSION = '6.2';
 const CACHE_NAME = 'nexus-v' + VERSION;
 const FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 const PRECACHE = [
